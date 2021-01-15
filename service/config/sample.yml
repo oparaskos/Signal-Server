@@ -1,6 +1,6 @@
 twilio: # Twilio gateway configuration
-  accountId: 
-  accountToken: 
+  accountId: none
+  accountToken: none
   numbers: # Numbers allocated in Twilio
     - # First number
     - # Second number
@@ -8,13 +8,23 @@ twilio: # Twilio gateway configuration
     - # ...
     - # Nth number
   messagingServicesId: 
-  localDomain: # Domain Twilio can connect back to for calls. Should be domain of your service.
+  localDomain: twilio.local # Domain Twilio can connect back to for calls. Should be domain of your service.
+
+abuseDatabase:
+  driverClass: org.postgresql.Driver
+  user: postgres
+  password: postgres
+  url: abuse-database
+
+accountDatabaseCrawler: {}
+accountsDatabase: 
+  driverClass: org.postgresql.Driver
+  user: postgres
+  password: postgres
+  url: accounts-database
 
 push:
   queueSize: # Size of push pending queue
-
-redphone:
-  authKey: # Deprecated
 
 turn: # TURN server configuration
   secret: # TURN server secret
@@ -25,67 +35,114 @@ turn: # TURN server configuration
     - turn:etc.com:80?transport=udp
 
 cache: # Redis server configuration for cache cluster
-  url:
-  replicaUrls:
+  url: redis.local
+  replicaUrls: []
 
 directory:
   redis: # Redis server configuration for directory cluster
-    url:
-    replicaUrls:
+    url: redis.local
+    replicaUrls: []
   client: # Configuration for interfacing with Contact Discovery Service cluster
-    userAuthenticationTokenSharedSecret: # hex-encoded secret shared with CDS used to generate auth tokens for Signal users
-    userAuthenticationTokenUserIdSecret: # hex-encoded secret shared among Signal-Servers to obscure user phone numbers from CDS
+    userAuthenticationTokenSharedSecret: ffff # hex-encoded secret shared with CDS used to generate auth tokens for Signal users
+    userAuthenticationTokenUserIdSecret: ffff # hex-encoded secret shared among Signal-Servers to obscure user phone numbers from CDS
   sqs:
-    accessKey:      # AWS SQS accessKey
-    accessSecret:   # AWS SQS accessSecret
-    queueUrl:       # AWS SQS queue url
+    accessKey: XXX     # AWS SQS accessKey
+    accessSecret: XXX  # AWS SQS accessSecret
+    queueUrl: XXX      # AWS SQS queue url
   server:
-    replicationUrl:                # CDS replication endpoint base url
-    replicationPassword:           # CDS replication endpoint password
-    replicationCaCertificate:      # CDS replication endpoint TLS certificate trust root
-    reconciliationChunkSize:       # CDS reconciliation chunk size
-    reconciliationChunkIntervalMs: # CDS reconciliation chunk interval, in milliseconds
+    replicationUrl: cds.local               # CDS replication endpoint base url
+    replicationPassword: cdsuser            # CDS replication endpoint password
+    replicationCaCertificate: cdspass       # CDS replication endpoint TLS certificate trust root
+    # reconciliationChunkSize:       # CDS reconciliation chunk size
+    # reconciliationChunkIntervalMs: # CDS reconciliation chunk interval, in milliseconds
 
 messageCache: # Redis server configuration for message store cache
-  url:
-  replicaUrls:
+  redis: # Redis server configuration for directory cluster
+    url: redis.local
+    replicaUrls: []
+  persistDelayMinutes: 0
 
 messageStore: # Postgresql database configuration for message store
   driverClass: org.postgresql.Driver
-  user:
-  password:
-  url:
+  user: postgres
+  password: postgres
+  url: message-store-database
 
 awsAttachments: # AWS S3 configuration
-  accessKey:
-  accessSecret:
-  bucket:
-  region:
+  accessKey: xxx
+  accessSecret: xxx
+  bucket: attachments-bucket
+  region: eu-west-1
 
 gcpAttachments: # GCP Storage configuration
-  domain:
-  email:
-  maxSizeInBytes:
-  pathPrefix:
-  rsaSigningKey:
+  domain: domain.local
+  email: user@domain.local
+  maxSizeInBytes: 2048
+  pathPrefix: /gcp-attachments
+  rsaSigningKey: fff
 
-profiles: # AWS S3 configuration
-  accessKey:
-  accessSecret:
-  bucket:
-  region:
+# profiles: # AWS S3 configuration
+#   accessKey:
+#   accessSecret:
+#   bucket:
+#   region:
 
-database: # Postgresql database configuration
-  driverClass: org.postgresql.Driver
-  user:
-  password:
-  url:
+# database: # Postgresql database configuration
+#   driverClass: org.postgresql.Driver
+#   user: postgres
+#   password: postgres
+#   url: database
 
 apn: # Apple Push Notifications configuration
-  bundleId:
-  pushCertificate:
-  pushKey:
+  bundleId: com.example
+  pushCertificate: MIIASdasdasdasdasd
+  pushKey: MIIasdasdaskdhj
 
 gcm: # GCM Configuration
-  senderId:
-  apiKey:
+  senderId: 9798797
+  apiKey: xxx
+
+backupService:
+  userAuthenticationTokenSharedSecret: asdasd
+
+cdn:
+  accessKey: xxx
+  accessSecret: xxx
+  bucket: attachments-bucket
+  region: eu-west-1
+
+
+zkConfig:
+  serverSecret: XXSECRETXX
+  serverPublic: PUBLIC
+  enabled: false
+
+
+voiceVerification:
+  url: voice.local
+  locales: []
+
+pubsub:
+  replicaUrls: []
+  url: pubsub.local
+
+pushScheduler:
+  replicaUrls: []
+  url: push-scheduler.local
+
+recaptcha:
+  secret: XXSECRETXX
+
+remoteConfig: {}
+
+storageService:
+  userAuthenticationTokenSharedSecret: XXSECRETXX
+
+turn:
+  secret: xxx
+  uris: []
+
+unidentifiedDelivery:
+  certificate: MIIAsdakjsdh
+  privateKey: ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmY=
+  expiresDays: 100
