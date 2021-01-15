@@ -21,7 +21,10 @@
         <mockito.version>2.25.1</mockito.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <TextSecureServer.version>3.21</TextSecureServer.version>
+        <SignalServer.version>3.21</SignalServer.version>
+
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
     </properties>
 
     <parent>
@@ -32,7 +35,7 @@
 
 
     <groupId>org.whispersystems.textsecure</groupId>
-    <artifactId>TextSecureServer</artifactId>
+    <artifactId>SignalServer</artifactId>
     <version>1.0</version>
 
     <dependencies>
